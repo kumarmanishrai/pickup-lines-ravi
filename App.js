@@ -11,8 +11,8 @@ export default function App() {
     fetch("https://vinuxd.vercel.app/api/pickup")
     .then((res) => res.json())
     .then((json) => {
-      const {title} = json;
-      setPickUpLines(title);
+      const {pickup} = json;
+      setPickUpLines(pickup);
       console.log(json);
     })
     .catch((error) => console.error(error));
