@@ -1,11 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default function App() {
+
+  const[pickUpLines, setPickUpLines] = useState("");
+  useEffect(() => {
+    fetchLines();
+  },[]);
+  const fetchLines = () => {
+    fetch("https://vinuxd.vercel.app/api/pickup")
+    .then((res) => res.json())
+    .then((json) => {
+      const {title} = json;
+      setPickUpLines(title);
+      console.log(json);
+    })
+    .catch((error) => console.error(error));
+  };
+
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Button onPress={fetchLines} title = "Get PickUp Lines"></Button>
+      <Text>{pickUpLines}</Text>
     </View>
   );
 }
